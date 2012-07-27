@@ -1,0 +1,3 @@
+To activate the Image Tags on a text area field, go to the DETAILS tab on this field EDIT page, and choose it from the Text Formatters options.
+
+To add an image, place {fieldname:n} anywhere on the textarea, where "fieldname" is the name of the field from where you want the image to be pulled, and "n" is the number that represents the position of that image on that field.
