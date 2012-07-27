@@ -1,0 +1,40 @@
+<?php
+
+class TextformatterImageTags extends Textformatter {
+
+	public static function getModuleInfo() {
+		return array(
+			'title' => 'Image Tags', 
+			'version' => 101, 
+			'summary' => "Allows you to insert images in a text area by referencing them with tags in the format {fieldName:n}",
+			'href' => 'http://processwire.com/talk/topic/1182-module-image-tags/',
+		); 
+	}
+
+	public function format(&$str) {
+		if(strpos($str, '{') === false) return; // check if we even need to perform a preg_match and exit if not (added by Ryan)
+		preg_match_all("/{[\w]*:[\d]*}/", $str, $array);
+		foreach($array[0] as $match){
+	   		$nobrackets = str_replace(array("{","}"),"",$match);
+	   		$exploded = explode(":",$nobrackets);
+	   		$field = $this->page->$exploded[0];
+	        $number = $exploded[1];
+	        $index = $number-1;
+	        if($field instanceof Pageimages){
+	        	if($number){
+	        		$image = $field->eq($index);
+	        		$image = "<img class='ImageTags' src='$image->url' alt='$image->description'>";
+	        	} else {
+	        		$image = "";
+	        		foreach($field as $img)
+	     				$image .= "<img class='ImageTags' src='$img->url' alt='$img->description'>";
+	     		}
+	        } else if($field instanceof Pageimage){
+	        	$image = "<img class='ImageTags' src='$field->url' alt='$field->description'>";
+	     	} else {
+	     		$image = "";
+	     	}
+	        $str = str_replace($match, $image, $str);
+	   }
+	}
+}
