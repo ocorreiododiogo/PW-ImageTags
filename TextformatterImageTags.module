@@ -5,7 +5,7 @@ class TextformatterImageTags extends Textformatter {
 	public static function getModuleInfo() {
 		return array(
 			'title' => 'Image Tags', 
-			'version' => 101, 
+			'version' => 102, 
 			'summary' => "Allows you to insert images in a text area by referencing them with tags in the format {fieldName:n}",
 			'href' => 'http://processwire.com/talk/topic/1182-module-image-tags/',
 		); 
