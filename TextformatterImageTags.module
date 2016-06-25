@@ -17,7 +17,7 @@ class TextformatterImageTags extends Textformatter {
 		foreach($array[0] as $match){
 	   		$nobrackets = str_replace(array("{","}"),"",$match);
 	   		$exploded = explode(":",$nobrackets);
-	   		$field = $this->page->$exploded[0];
+	   		$field = $this->page->get($exploded[0]);
 	        $number = $exploded[1];
 	        $index = $number-1;
 	        if($field instanceof Pageimages){
